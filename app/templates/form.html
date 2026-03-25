@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_edit %}編集{% else %}新規登録{% endif %} | 教材リンク管理アプリ{% endblock %}
+
+{% block content %}
+<section class="panel form-panel">
+    <h2>{% if is_edit %}教材編集{% else %}教材新規登録{% endif %}</h2>
+    <form method="post" class="material-form">
+        <div class="form-row">
+            <label for="title">タイトル</label>
+            <input type="text" id="title" name="title" value="{{ material['title'] }}" required>
+        </div>
+
+        <div class="form-row">
+            <label for="url">URL</label>
+            <input type="url" id="url" name="url" value="{{ material['url'] }}" placeholder="https://example.com" required>
+        </div>
+
+        <div class="form-row">
+            <label for="course">科目名</label>
+            <input type="text" id="course" name="course" value="{{ material['course'] }}" required>
+        </div>
+
+        <div class="form-row">
+            <label for="tags">タグ</label>
+            <input type="text" id="tags" name="tags" value="{{ material['tags'] }}" placeholder="Python, Flask, Docker">
+        </div>
+
+        <div class="form-row">
+            <label for="memo">メモ</label>
+            <textarea id="memo" name="memo" rows="5" placeholder="資料の要点や補足を記録">{{ material['memo'] }}</textarea>
+        </div>
+
+        <div class="checkbox-row">
+            <label>
+                <input type="checkbox" name="favorite" {% if material['favorite'] %}checked{% endif %}>
+                お気に入りにする
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="button primary">{% if is_edit %}更新する{% else %}登録する{% endif %}</button>
+            <a href="{{ url_for('materials.index') }}" class="button secondary">戻る</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

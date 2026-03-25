@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    container_name: material_manager_web
+    ports:
+      - "5000:5000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DATABASE_PATH: ${DATABASE_PATH}
+    volumes:
+      - material_data:/data
+    restart: unless-stopped
+
+volumes:
+  material_data:

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}一覧 | 教材リンク管理アプリ{% endblock %}
+
+{% block content %}
+<section class="panel search-panel">
+    <form method="get" class="search-form">
+        <div class="form-row grow">
+            <label for="q">キーワード検索</label>
+            <input type="text" id="q" name="q" value="{{ q }}" placeholder="タイトル、URL、タグ、メモなど">
+        </div>
+        <div class="form-row">
+            <label for="course">科目名</label>
+            <select id="course" name="course">
+                <option value="">すべて</option>
+                {% for course in courses %}
+                    <option value="{{ course }}" {% if course == selected_course %}selected{% endif %}>{{ course }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="checkbox-row">
+            <label>
+                <input type="checkbox" name="favorite" value="1" {% if favorites_only %}checked{% endif %}>
+                お気に入りのみ
+            </label>
+        </div>
+        <div class="search-actions">
+            <button type="submit" class="button primary">検索</button>
+            <a href="{{ url_for('materials.index') }}" class="button secondary">リセット</a>
+        </div>
+    </form>
+</section>
+
+<section class="list-header">
+    <h2>登録一覧</h2>
+    <p>{{ materials|length }} 件</p>
+</section>
+
+{% if materials %}
+    <div class="card-list">
+        {% for material in materials %}
+            <article class="card">
+                <div class="card-top">
+                    <div>
+                        <div class="meta-row">
+                            <span class="badge">{{ material['course'] }}</span>
+                            {% if material['favorite'] %}<span class="badge favorite">★ お気に入り</span>{% endif %}
+                        </div>
+                        <h3>{{ material['title'] }}</h3>
+                    </div>
+                    <form method="post" action="{{ url_for('materials.toggle_favorite', material_id=material['id']) }}">
+                        <button type="submit" class="icon-button" title="お気に入り切り替え">★</button>
+                    </form>
+                </div>
+
+                <p class="url-line">
+                    <a href="{{ material['url'] }}" target="_blank" rel="noopener noreferrer">{{ material['url'] }}</a>
+                </p>
+
+                {% if material['tags'] %}
+                    <p class="tags">タグ: {{ material['tags'] }}</p>
+                {% endif %}
+
+                {% if material['memo'] %}
+                    <p class="memo">{{ material['memo'] }}</p>
+                {% endif %}
+
+                <div class="card-footer">
+                    <small>作成: {{ material['created_at'] }} / 更新: {{ material['updated_at'] }}</small>
+                    <div class="card-actions">
+                        <a href="{{ url_for('materials.edit_material', material_id=material['id']) }}" class="button secondary small">編集</a>
+                        <form method="post" action="{{ url_for('materials.delete_material', material_id=material['id']) }}" onsubmit="return confirm('この教材を削除しますか？');">
+                            <button type="submit" class="button danger small">削除</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <section class="empty-state panel">
+        <h3>まだ教材が登録されていません</h3>
+        <p>「新規登録」から講義資料や参考URLを追加してください。</p>
+    </section>
+{% endif %}
+{% endblock %}

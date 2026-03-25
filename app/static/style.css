@@ -1,0 +1,199 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1c2431;
+  --muted: #5f6b7a;
+  --border: #dbe2ea;
+  --primary: #1f6feb;
+  --danger: #d1242f;
+  --success: #18794e;
+  --favorite: #f59e0b;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.site-header {
+  background: #0f172a;
+  color: #fff;
+  padding: 24px 0;
+  margin-bottom: 24px;
+}
+
+.site-header a { color: #fff; text-decoration: none; }
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.subtitle {
+  margin: 6px 0 0;
+  color: #c9d4e5;
+  font-size: 0.95rem;
+}
+
+.panel,
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.panel { padding: 20px; margin-bottom: 20px; }
+.search-form,
+.material-form {
+  display: grid;
+  gap: 16px;
+}
+.form-row { display: grid; gap: 8px; }
+.form-row.grow { min-width: 280px; }
+label { font-weight: 600; }
+input[type="text"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #fff;
+}
+textarea { resize: vertical; }
+
+.search-panel .search-form {
+  grid-template-columns: 2fr 1fr auto auto;
+  align-items: end;
+}
+.checkbox-row { display: flex; align-items: center; gap: 8px; }
+.search-actions,
+.form-actions,
+.card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button,
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button.primary { background: var(--primary); color: #fff; }
+.button.secondary { background: #eef2f7; color: var(--text); border-color: var(--border); }
+.button.danger { background: #fff1f2; color: var(--danger); border-color: #fecdd3; }
+.button.small { padding: 8px 12px; font-size: 0.92rem; }
+.icon-button {
+  background: #fff7e6;
+  color: var(--favorite);
+  border-color: #fde68a;
+  min-width: 42px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 0 14px;
+}
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.card { padding: 18px; }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+.card h3 { margin: 8px 0 0; font-size: 1.1rem; }
+.meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background: #eef4ff;
+  color: #274690;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.badge.favorite {
+  background: #fff7e6;
+  color: #9a6700;
+}
+.url-line,
+.tags,
+.memo {
+  margin: 10px 0;
+  word-break: break-all;
+}
+.memo {
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.card-footer small { color: var(--muted); }
+.empty-state { text-align: center; padding: 40px 20px; }
+
+.flash-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.flash {
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+.flash.success { background: #ecfdf3; color: var(--success); border: 1px solid #a7f3d0; }
+.flash.error { background: #fff1f2; color: var(--danger); border: 1px solid #fecdd3; }
+
+@media (max-width: 900px) {
+  .search-panel .search-form {
+    grid-template-columns: 1fr;
+  }
+  .header-inner,
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
